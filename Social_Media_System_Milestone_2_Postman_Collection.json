@@ -1,0 +1,1080 @@
+{
+  "info": {
+    "name": "Social Media System — Milestone 2 API Tests",
+    "_postman_id": "2ed0f8fd-4f58-47fd-94a6-6f626ded615c",
+    "description": "Spring Boot / H2 API test collection for Champlain College Milestone 2. Start the app first and run the collection in order using Postman Collection Runner. Includes seeded-data reads, CRUD requests, aggregated endpoints, status code and validation checks, and cleanup. Requires controllers and DataSeeder from Steps 7–8.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "A — Check seeded data",
+      "description": "Read the 10 users, 50 posts, 50 interactions and relationship endpoints.",
+      "item": [
+        {
+          "name": "01 GET all users (10 seeded)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"10 seeded users\", () => pm.expect(pm.response.json()).to.have.lengthOf(10));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "02 GET all posts (50 seeded)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"50 seeded posts\", () => pm.expect(pm.response.json()).to.have.lengthOf(50));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "03 GET all interactions (50 seeded)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/interactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "interactions"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"50 seeded interactions\", () => pm.expect(pm.response.json()).to.have.lengthOf(50));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "04 GET seeded user 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"User 1 returned\", () => pm.expect(pm.response.json().id).to.eql(1));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "05 GET user 1 with posts (aggregated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/1/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "1",
+                "posts"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"User plus 5 posts\", () => { const r = pm.response.json(); pm.expect(r.user.id).to.eql(1); pm.expect(r.posts).to.have.lengthOf(5); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "06 GET post 1 with author (aggregated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/1/author",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "1",
+                "author"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Post and author objects\", () => { const r = pm.response.json(); pm.expect(r.post.id).to.eql(1); pm.expect(r.author.id).to.be.a(\"number\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "07 GET interactions on post 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/1/interactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "1",
+                "interactions"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"One seeded interaction on post 1\", () => pm.expect(pm.response.json()).to.have.lengthOf(1));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "B — CRUD and aggregated responses",
+      "description": "Creates a temporary user, post and interaction; tests GET, POST and PUT; saves generated IDs automatically.",
+      "item": [
+        {
+          "name": "08 POST create test user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{testUsername}}\",\n  \"email\": \"{{testEmail}}\",\n  \"displayName\": \"Milestone 2 Tester\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Creates a unique test user each run, saves ID to collection variables."
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const suffix = Date.now().toString();",
+                  "pm.collectionVariables.set(\"testUsername\", \"ms2test_\" + suffix);",
+                  "pm.collectionVariables.set(\"testEmail\", \"ms2test_\" + suffix + \"@example.com\");"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Location header\", () => pm.expect(pm.response.headers.get(\"Location\")).to.include(\"/api/users/\"));",
+                  "pm.test(\"User ID saved\", () => {const r = pm.response.json(); pm.expect(r.id).to.be.a(\"number\"); pm.collectionVariables.set(\"testUserId\", r.id);});"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "09 GET newly created user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{testUserId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{testUserId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Correct new user ID\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"testUserId\"))));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "10 PUT update test user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{testUserId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{testUserId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{testUsername}}_updated\",\n  \"email\": \"{{testEmail}}\",\n  \"displayName\": \"Updated Test User\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"User updated\", () => pm.expect(pm.response.json().displayName).to.eql(\"Updated Test User\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "11 POST create test post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"This is my Milestone 2 API test post!\",\n  \"mediaUrl\": \"https://example.com/test-image.jpg\",\n  \"authorId\": {{testUserId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Post ID saved\", () => { const r = pm.response.json(); pm.expect(r.id).to.be.a(\"number\"); pm.collectionVariables.set(\"testPostId\", r.id); });",
+                  "pm.test(\"Location header\", () => pm.expect(pm.response.headers.get(\"Location\")).to.include(\"/api/posts/\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "12 GET newly created post",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/{{testPostId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "{{testPostId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Correct test post ID\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"testPostId\"))));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "13 PUT update test post",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/{{testPostId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "{{testPostId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Updated Milestone 2 test post\",\n  \"mediaUrl\": null,\n  \"authorId\": {{testUserId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Post text updated\", () => pm.expect(pm.response.json().content).to.eql(\"Updated Milestone 2 test post\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "14 POST create COMMENT interaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/interactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "interactions"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{testUserId}},\n  \"postId\": {{testPostId}},\n  \"type\": \"COMMENT\",\n  \"commentText\": \"Nice test post!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 201\", function () { pm.response.to.have.status(201); });",
+                  "pm.test(\"Interaction ID saved\", () => { const r = pm.response.json(); pm.expect(r.id).to.be.a(\"number\"); pm.collectionVariables.set(\"testInteractionId\", r.id); });",
+                  "pm.test(\"Interaction is COMMENT\", () => pm.expect(pm.response.json().type).to.eql(\"COMMENT\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "15 GET newly created interaction",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/interactions/{{testInteractionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "interactions",
+                "{{testInteractionId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Correct test interaction ID\", () => pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"testInteractionId\"))));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "16 PUT change COMMENT to LIKE",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/interactions/{{testInteractionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "interactions",
+                "{{testInteractionId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{testUserId}},\n  \"postId\": {{testPostId}},\n  \"type\": \"LIKE\",\n  \"commentText\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Interaction is LIKE\", () => pm.expect(pm.response.json().type).to.eql(\"LIKE\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "17 GET test user with posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{testUserId}}/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{testUserId}}",
+                "posts"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Aggregated user contains test post\", () => { const r = pm.response.json(); pm.expect(r.posts.some(p => p.id === Number(pm.collectionVariables.get(\"testPostId\")))).to.be.true; });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "18 GET test post with author",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/{{testPostId}}/author",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "{{testPostId}}",
+                "author"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Aggregated post author is test user\", () => pm.expect(pm.response.json().author.id).to.eql(Number(pm.collectionVariables.get(\"testUserId\"))));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "19 GET interactions on test post",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/{{testPostId}}/interactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "{{testPostId}}",
+                "interactions"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Contains created interaction\", () => pm.expect(pm.response.json().some(x => x.id === Number(pm.collectionVariables.get(\"testInteractionId\")))).to.be.true);"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "C — Invalid requests and errors",
+      "description": "Verifies 404 and 400 responses for missing IDs, invalid DTOs, invalid comments and duplicate usernames.",
+      "item": [
+        {
+          "name": "20 GET nonexistent user -> 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "999999"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Standardized Not Found body\", () => { const r = pm.response.json(); pm.expect(r.status).to.eql(404); pm.expect(r.path).to.eql(\"/api/users/999999\"); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "21 POST invalid user -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"\",\n  \"email\": \"not-an-email\",\n  \"displayName\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Field errors included\", () => pm.expect(pm.response.json()).to.have.property(\"fieldErrors\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "22 POST invalid post (blank content) -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"\",\n  \"mediaUrl\": null,\n  \"authorId\": {{testUserId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "23 POST blank COMMENT -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/interactions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "interactions"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": {{testUserId}},\n  \"postId\": {{testPostId}},\n  \"type\": \"COMMENT\",\n  \"commentText\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Business rule message\", () => pm.expect(pm.response.json().message).to.include(\"Comment text is required\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "24 POST duplicate username -> 400",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"{{testUsername}}_updated\",\n  \"email\": \"another_{{testEmail}}\",\n  \"displayName\": \"Duplicate\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 400\", function () { pm.response.to.have.status(400); });",
+                  "pm.test(\"Duplicate username message\", () => pm.expect(pm.response.json().message).to.include(\"Username already exists\"));"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "D — Delete test data",
+      "description": "Deletes created interaction, post, and user in dependency order; verifies deletion.",
+      "item": [
+        {
+          "name": "25 DELETE test interaction -> 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/interactions/{{testInteractionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "interactions",
+                "{{testInteractionId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "26 DELETE test post -> 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/posts/{{testPostId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "posts",
+                "{{testPostId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "27 DELETE test user -> 204",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{testUserId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{testUserId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 204\", function () { pm.response.to.have.status(204); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        },
+        {
+          "name": "28 GET deleted user -> 404",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{testUserId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{testUserId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });"
+                ]
+              }
+            }
+          ],
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "testUserId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testPostId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testInteractionId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testUsername",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "testEmail",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
