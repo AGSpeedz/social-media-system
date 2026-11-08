@@ -160,9 +160,45 @@ Additional generated Spring Boot tests may also run.
 
 ## Deployment
 
-**Public URL:** Not yet deployed. Update this section after Step 12.
+The Social Media System backend is successfully deployed on Render using Docker.
 
-The local app runs at `http://localhost:8080`, but this is **not** a public deployment URL. Because H2 is in memory, deploying or restarting the application recreates the demonstration data.
+**Public URL:** https://social-media-system.onrender.com
+
+### Live API Endpoints
+
+- Users: https://social-media-system.onrender.com/api/users
+- Posts: https://social-media-system.onrender.com/api/posts
+- Interactions: https://social-media-system.onrender.com/api/interactions
+- User Posts: https://social-media-system.onrender.com/api/users/1/posts
+- Post Author: https://social-media-system.onrender.com/api/posts/1/author
+
+### Swagger Documentation
+
+https://social-media-system.onrender.com/swagger-ui.html
+
+### Deployment Configuration
+
+- Hosting Platform: Render
+- Deployment Method: Docker
+- Java Version: 17
+- Database: H2 (in-memory)
+- Database Seeding: Automatic using CommandLineRunner
+- Public H2 Console: Disabled
+
+### Sample Database Records
+
+The deployed application automatically initializes:
+- 10 Users
+- 50 Posts
+- 50 Interactions
+
+### Important Notes
+
+The application uses Render's free hosting service, which may take additional time to respond after inactivity.
+
+Because H2 is an in-memory database, records reset when the application restarts. The DataSeeder automatically restores the demonstration data.
+
+The deployment has been verified, including the REST API endpoints and Swagger documentation.
 
 ## Project files
 
