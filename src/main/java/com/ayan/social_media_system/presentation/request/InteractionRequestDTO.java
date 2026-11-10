@@ -1,6 +1,6 @@
 package com.ayan.social_media_system.presentation.request;
 
-import com.ayan.social_media_system.domain.InteractionType;
+import com.ayan.social_media_system.datalayer.InteractionType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;

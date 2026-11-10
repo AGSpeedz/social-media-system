@@ -1,15 +1,15 @@
 package com.ayan.social_media_system.service;
 
-import com.ayan.social_media_system.domain.Post;
-import com.ayan.social_media_system.domain.User;
+import com.ayan.social_media_system.datalayer.Post;
+import com.ayan.social_media_system.datalayer.User;
 import com.ayan.social_media_system.exception.NotFoundException;
 import com.ayan.social_media_system.mapper.SocialMediaMapper;
 import com.ayan.social_media_system.presentation.request.PostRequestDTO;
 import com.ayan.social_media_system.presentation.response.PostResponseDTO;
 import com.ayan.social_media_system.presentation.response.PostWithAuthorResponseDTO;
-import com.ayan.social_media_system.repository.InteractionRepository;
-import com.ayan.social_media_system.repository.PostRepository;
-import com.ayan.social_media_system.repository.UserRepository;
+import com.ayan.social_media_system.datalayer.InteractionRepository;
+import com.ayan.social_media_system.datalayer.PostRepository;
+import com.ayan.social_media_system.datalayer.UserRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +41,19 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<PostResponseDTO> getAllPosts() {
         return postRepository.findAll()
+                .stream()
+                .map(mapper::toPostResponseDTO)
+                .toList();
+    }
+
+    // GET POSTS FILTERED BY AUTHOR
+    @Transactional(readOnly = true)
+    public List<PostResponseDTO> getPostsByAuthor(Long authorId) {
+
+        // Check that the author exists.
+        findUser(authorId);
+
+        return postRepository.findByAuthorId(authorId)
                 .stream()
                 .map(mapper::toPostResponseDTO)
                 .toList();

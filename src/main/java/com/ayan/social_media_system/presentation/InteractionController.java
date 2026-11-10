@@ -1,4 +1,4 @@
-package com.ayan.social_media_system.controller;
+package com.ayan.social_media_system.presentation;
 
 import com.ayan.social_media_system.presentation.request.InteractionRequestDTO;
 import com.ayan.social_media_system.presentation.response.InteractionResponseDTO;

@@ -1,4 +1,4 @@
-package com.ayan.social_media_system.controller;
+package com.ayan.social_media_system.presentation;
 
 import com.ayan.social_media_system.presentation.request.PostRequestDTO;
 import com.ayan.social_media_system.presentation.response.PostResponseDTO;
@@ -30,9 +30,19 @@ public class PostController {
     }
 
     // GET ALL POSTS
-    @GetMapping
+    @GetMapping(params = "!authorId")
     public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
+    }
+
+    // GET POSTS FILTERED BY AUTHOR ID
+    @GetMapping(params = "authorId")
+    public ResponseEntity<List<PostResponseDTO>> getPostsByAuthor(
+            @RequestParam Long authorId
+    ) {
+        return ResponseEntity.ok(
+                postService.getPostsByAuthor(authorId)
+        );
     }
 
     // GET POST BY ID

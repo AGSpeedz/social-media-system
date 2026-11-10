@@ -1,16 +1,17 @@
 package com.ayan.social_media_system.service;
 
-import com.ayan.social_media_system.domain.Interaction;
-import com.ayan.social_media_system.domain.InteractionType;
-import com.ayan.social_media_system.domain.Post;
-import com.ayan.social_media_system.domain.User;
+
+import com.ayan.social_media_system.datalayer.Interaction;
+import com.ayan.social_media_system.datalayer.InteractionType;
+import com.ayan.social_media_system.datalayer.Post;
+import com.ayan.social_media_system.datalayer.User;
 import com.ayan.social_media_system.exception.NotFoundException;
 import com.ayan.social_media_system.mapper.SocialMediaMapper;
 import com.ayan.social_media_system.presentation.request.InteractionRequestDTO;
 import com.ayan.social_media_system.presentation.response.InteractionResponseDTO;
-import com.ayan.social_media_system.repository.InteractionRepository;
-import com.ayan.social_media_system.repository.PostRepository;
-import com.ayan.social_media_system.repository.UserRepository;
+import com.ayan.social_media_system.datalayer.InteractionRepository;
+import com.ayan.social_media_system.datalayer.PostRepository;
+import com.ayan.social_media_system.datalayer.UserRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

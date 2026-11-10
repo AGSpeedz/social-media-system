@@ -14,16 +14,21 @@
 
 ## Architecture
 
-The application separates responsibilities into:
+The application follows a layered Spring Boot architecture:
 
-- **Controller (`controller`)**: REST endpoints and HTTP status codes
-- **Service (`service`)**: business logic, validation rules, and transactional operations
-- **Repository (`repository`)**: database access through Spring Data JPA
-- **Domain (`domain`)**: JPA entities and relationships
-- **DTOs (`presentation/request` and `presentation/response`)**: API request/response models
-- **Mapper (`mapper`)**: conversion between entities and DTOs
-- **Exception (`exception`)**: centralized API error responses
-- **Bootstrap (`bootstrap`)**: sample data initialization
+- **Presentation (`presentation`)**: REST controllers and HTTP responses.
+- **Request DTOs (`presentation/request`)**: Incoming API data and validation.
+- **Response DTOs (`presentation/response`)**: Outgoing API data.
+- **Service (`service`)**: Business logic and transactional operations.
+- **Data Layer (`datalayer`)**: JPA entities, relationships, and Spring Data JPA repositories.
+- **Mapper (`mapper`)**: Entity and DTO conversions.
+- **Exception (`exception`)**: Centralized API error handling.
+- **Bootstrap (`bootstrap`)**: Automatic database seeding.
+- **Config (`config`)**: OpenAPI/Swagger configuration.
+
+I also now have Lombok annotations such as
+@Getter, @Setter, and @NoArgsConstructor to reduce
+boilerplate code.
 
 ### Data model
 
@@ -69,6 +74,7 @@ All endpoints have the `/api` prefix. Replace `{id}` with a valid numeric resour
 | GET | `/api/users/{id}/posts` | Get a user with their posts |
 | GET | `/api/posts` | List posts |
 | GET | `/api/posts/{id}` | Get post by ID |
+| GET | `/api/posts?authorId=1` | Filter posts by author |
 | POST | `/api/posts` | Create post |
 | PUT | `/api/posts/{id}` | Update post |
 | DELETE | `/api/posts/{id}` | Delete post |

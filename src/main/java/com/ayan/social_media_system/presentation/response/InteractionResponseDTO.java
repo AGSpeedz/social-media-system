@@ -1,6 +1,6 @@
 package com.ayan.social_media_system.presentation.response;
 
-import com.ayan.social_media_system.domain.InteractionType;
+import com.ayan.social_media_system.datalayer.InteractionType;
 import java.time.LocalDateTime;
 
 public record InteractionResponseDTO(

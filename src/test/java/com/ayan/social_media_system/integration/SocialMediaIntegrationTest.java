@@ -1,7 +1,9 @@
 package com.ayan.social_media_system.integration;
 
-import com.ayan.social_media_system.domain.User;
-import com.ayan.social_media_system.repository.*;
+import com.ayan.social_media_system.datalayer.InteractionRepository;
+import com.ayan.social_media_system.datalayer.PostRepository;
+import com.ayan.social_media_system.datalayer.User;
+import com.ayan.social_media_system.datalayer.UserRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

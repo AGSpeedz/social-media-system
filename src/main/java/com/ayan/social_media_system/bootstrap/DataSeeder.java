@@ -1,7 +1,6 @@
 package com.ayan.social_media_system.bootstrap;
 
-import com.ayan.social_media_system.domain.*;
-import com.ayan.social_media_system.repository.*;
+import com.ayan.social_media_system.datalayer.*;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

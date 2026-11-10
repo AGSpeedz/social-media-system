@@ -1,6 +1,5 @@
-package com.ayan.social_media_system.repository;
+package com.ayan.social_media_system.datalayer;
 
-import com.ayan.social_media_system.domain.Interaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

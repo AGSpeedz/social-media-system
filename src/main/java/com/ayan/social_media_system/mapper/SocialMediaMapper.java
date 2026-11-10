@@ -1,6 +1,6 @@
 package com.ayan.social_media_system.mapper;
 
-import com.ayan.social_media_system.domain.*;
+import com.ayan.social_media_system.datalayer.*;
 import com.ayan.social_media_system.presentation.request.*;
 import com.ayan.social_media_system.presentation.response.*;
 
