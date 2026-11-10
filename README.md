@@ -1,6 +1,5 @@
 # Social Media System — Spring Boot REST API
 
-A RESTful backend application for creating social media users, publishing posts, and interacting with posts using likes and comments. Developed for Champlain College Saint-Lambert's Java Web Programming course (Fall 2026), Milestone 2.
 
 ## Technology stack
 
