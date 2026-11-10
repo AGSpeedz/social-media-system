@@ -1,7 +1,7 @@
-# Social Media System — Spring Boot REST API
+# Social Media System Spring Boot REST API
 
 
-## Technology stack
+## Technology Stack
 
 - Java 17
 - Spring Boot, Spring Web, and Bean Validation
@@ -32,9 +32,9 @@ boilerplate code.
 
 ### Data model
 
-- **User** — `id`, `username`, `email`, `displayName`
-- **Post** — `id`, `content`, `mediaUrl`, `createdAt`, `author`
-- **Interaction** — `id`, `type` (`LIKE` or `COMMENT`), `commentText`, `createdAt`, `user`, `post`
+- **User** `id`, `username`, `email`, `displayName`
+- **Post** `id`, `content`, `mediaUrl`, `createdAt`, `author`
+- **Interaction** `id`, `type` (`LIKE` or `COMMENT`), `commentText`, `createdAt`, `user`, `post`
 
 Relationships: one user can author many posts; one user can perform many interactions; one post can have many interactions.
 
@@ -157,9 +157,9 @@ Run tests from the project root:
 
 Custom test classes:
 
-- `UserControllerTest` — controller behavior and HTTP response codes
-- `UserServiceTest` — user business logic and missing-resource/duplicate checks
-- `SocialMediaIntegrationTest` — H2 seed counts and user-to-post relationship
+- `UserControllerTest` controller behavior and HTTP response codes
+- `UserServiceTest` user business logic and missing-resource/duplicate checks
+- `SocialMediaIntegrationTest` H2 seed counts and user-to-post relationship
 
 Additional generated Spring Boot tests may also run.
 
@@ -207,11 +207,11 @@ The deployment has been verified, including the REST API endpoints and Swagger d
 
 ## Project files
 
-- `src/` — application code and tests
-- `build.gradle` and `settings.gradle` — Gradle configuration
-- `gradle/`, `gradlew`, `gradlew.bat` — Gradle wrapper
-- `Milestone1_Design_Report.pdf` — Milestone 1 design documentation
-- `Social_Media_System_Milestone_2_Postman_Collection.json` — API testing collection
+- `src/` application code and tests
+- `build.gradle` and `settings.gradle` Gradle configuration
+- `gradle/`, `gradlew`, `gradlew.bat` Gradle wrapper
+- `Milestone1_Design_Report.pdf` Milestone 1 design documentation
+- `Social_Media_System_Milestone_2_Postman_Collection.json` API testing collection
 
 ## Limitations
 
