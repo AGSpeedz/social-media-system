@@ -68,7 +68,7 @@ public class PostService {
 
     // CREATE POST
     public PostResponseDTO createPost(PostRequestDTO request) {
-        User author = findUser(request.authorId());
+        User author = findUser(request.getAuthorId());
 
         Post post = mapper.toPostEntity(request, author);
         Post savedPost = postRepository.save(post);
@@ -82,11 +82,13 @@ public class PostService {
             PostRequestDTO request
     ) {
         Post post = findPost(id);
-        User author = findUser(request.authorId());
+
+        User author = findUser(request.getAuthorId());
 
         mapper.updatePostEntity(post, request, author);
 
         Post savedPost = postRepository.save(post);
+
         return mapper.toPostResponseDTO(savedPost);
     }
 

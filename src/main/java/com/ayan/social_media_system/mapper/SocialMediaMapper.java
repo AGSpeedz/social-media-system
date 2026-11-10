@@ -27,9 +27,9 @@ public class SocialMediaMapper {
     }
 
     public void updateUserEntity(User user, UserRequestDTO request) {
-        user.setUsername(request.username());
-        user.setEmail(request.email());
-        user.setDisplayName(request.displayName());
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setDisplayName(request.getDisplayName());
     }
 
 
@@ -56,8 +56,8 @@ public class SocialMediaMapper {
             PostRequestDTO request,
             User author
     ) {
-        post.setContent(request.content());
-        post.setMediaUrl(request.mediaUrl());
+        post.setContent(request.getContent());
+        post.setMediaUrl(request.getMediaUrl());
         post.setAuthor(author);
     }
 
@@ -93,8 +93,8 @@ public class SocialMediaMapper {
             User user,
             Post post
     ) {
-        interaction.setType(request.type());
-        interaction.setCommentText(request.commentText());
+        interaction.setType(request.getType());
+        interaction.setCommentText(request.getCommentText());
         interaction.setUser(user);
         interaction.setPost(post);
     }

@@ -48,7 +48,7 @@ public class InteractionController {
                 interactionService.createInteraction(request);
 
         URI location = URI.create(
-                "/api/interactions/" + created.id()
+                "/api/interactions/" + created.getId()
         );
 
         return ResponseEntity.created(location).body(created);

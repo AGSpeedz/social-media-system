@@ -60,7 +60,7 @@ public class PostController {
     ) {
         PostResponseDTO created = postService.createPost(request);
 
-        URI location = URI.create("/api/posts/" + created.id());
+        URI location = URI.create("/api/posts/" + created.getId());
 
         return ResponseEntity.created(location).body(created);
     }

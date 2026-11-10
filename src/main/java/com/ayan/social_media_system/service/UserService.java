@@ -130,7 +130,7 @@ public class UserService {
             UserRequestDTO request,
             Long currentId
     ) {
-        userRepository.findByUsername(request.username())
+        userRepository.findByUsername(request.getUsername())
                 .ifPresent(existing -> {
                     if (!existing.getId().equals(currentId)) {
                         throw new IllegalArgumentException(
@@ -139,7 +139,7 @@ public class UserService {
                     }
                 });
 
-        userRepository.findByEmail(request.email())
+        userRepository.findByEmail(request.getEmail())
                 .ifPresent(existing -> {
                     if (!existing.getId().equals(currentId)) {
                         throw new IllegalArgumentException(

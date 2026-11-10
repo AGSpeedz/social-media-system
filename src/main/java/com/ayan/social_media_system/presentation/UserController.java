@@ -43,7 +43,7 @@ public class UserController {
     ) {
         UserResponseDTO created = userService.createUser(request);
 
-        URI location = URI.create("/api/users/" + created.id());
+        URI location = URI.create("/api/users/" + created.getId());
 
         return ResponseEntity.created(location).body(created);
     }

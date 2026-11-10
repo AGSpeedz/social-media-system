@@ -61,8 +61,8 @@ public class InteractionService {
     ) {
         validateInteraction(request);
 
-        User user = findUser(request.userId());
-        Post post = findPost(request.postId());
+        User user = findUser(request.getUserId());
+        Post post = findPost(request.getPostId());
 
         Interaction interaction =
                 mapper.toInteractionEntity(request, user, post);
@@ -82,8 +82,8 @@ public class InteractionService {
 
         validateInteraction(request);
 
-        User user = findUser(request.userId());
-        Post post = findPost(request.postId());
+        User user = findUser(request.getUserId());
+        Post post = findPost(request.getPostId());
 
         mapper.updateInteractionEntity(
                 interaction,
@@ -132,9 +132,12 @@ public class InteractionService {
 
     // VALIDATE INTERACTION
     private void validateInteraction(InteractionRequestDTO request) {
-        if (request.type() == InteractionType.COMMENT) {
-            if (request.commentText() == null ||
-                    request.commentText().isBlank()) {
+
+        if (request.getType() == InteractionType.COMMENT) {
+
+            if (request.getCommentText() == null ||
+                    request.getCommentText().isBlank()) {
+
                 throw new IllegalArgumentException(
                         "Comment text is required for COMMENT interactions"
                 );
